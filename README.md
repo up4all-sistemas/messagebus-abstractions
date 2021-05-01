@@ -1,2 +1,4 @@
 # messagebus-abstractions
-Abstraction for messaging services / AMQP for .Net
+Abstração para consumo de serviços de Mensageria/AMQP para .Net
+
+

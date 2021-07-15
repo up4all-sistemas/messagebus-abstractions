@@ -7,7 +7,7 @@ using Up4All.Framework.MessageBus.Abstractions.Messages;
 
 namespace Up4All.Framework.MessageBus.Abstractions
 {
-    public abstract class MessageBusStandaloneTopicClient : MessageBusStandaloneClientBase, IMessageBusPublisher
+    public abstract class MessageBusStandaloneTopicClient : MessageBusStandaloneClientBase, IMessageBusStandalonePublisher
     {
         protected string ConnectionString { get; private set; }
         protected string TopicName { get; private set; }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using Up4All.Framework.MessageBus.Abstractions.Enums;
@@ -8,23 +7,22 @@ using Up4All.Framework.MessageBus.Abstractions.Messages;
 
 namespace Up4All.Framework.MessageBus.Abstractions
 {
-    public abstract class MessageBusStandaloneQueueClient : MessageBusStandaloneClientBase, IMessageBusStandaloneQueueClient
+    public abstract class MessageBusStandaloneSubscribeClient : MessageBusStandaloneClientBase, IMessageBusStandaloneConsumer
     {
         protected string ConnectionString { get; private set; }
-        protected string QueueName { get; private set; }
+        protected string TopicName { get; private set; }
+        protected string SubscriptionName { get; private set; }
 
-        public MessageBusStandaloneQueueClient(string connectionString, string queueName)
+        public MessageBusStandaloneSubscribeClient(string connectionString, string topicName, string subscriptionName)
         {
             ConnectionString = connectionString;
-            QueueName = queueName;
+            TopicName = topicName;
+            SubscriptionName = subscriptionName;
         }
 
         public abstract void RegisterHandler(Func<ReceivedMessage, MessageReceivedStatusEnum> handler, Action<Exception> errorHandler, Action onIdle = null, bool autoComplete = false);
 
-        public abstract Task Send(MessageBusMessage message);
-
-        public abstract Task Send(IEnumerable<MessageBusMessage> messages);
-
         public abstract Task Close();
+        
     }
 }

@@ -6,17 +6,12 @@ using Up4All.Framework.MessageBus.Abstractions.Enums;
 using Up4All.Framework.MessageBus.Abstractions.Interfaces;
 using Up4All.Framework.MessageBus.Abstractions.Messages;
 
-namespace Up4All.Framework.MessageBus.Abstractions
+namespace Up4All.Framework.MessageBus.Abstractions.Mocks
 {
-    public abstract class MessageBusStandaloneQueueClient : MessageBusStandaloneClientBase, IMessageBusStandaloneQueueClient
+    public abstract class MessageBusStandaloneQueueClientMock : MessageBusClientBaseMock, IMessageBusStandaloneQueueClient
     {
-        protected string ConnectionString { get; private set; }
-        protected string QueueName { get; private set; }
-
-        public MessageBusStandaloneQueueClient(string connectionString, string queueName)
+        public MessageBusStandaloneQueueClientMock() : base()
         {
-            ConnectionString = connectionString;
-            QueueName = queueName;
         }
 
         public abstract void RegisterHandler(Func<ReceivedMessage, MessageReceivedStatusEnum> handler, Action<Exception> errorHandler, Action onIdle = null, bool autoComplete = false);

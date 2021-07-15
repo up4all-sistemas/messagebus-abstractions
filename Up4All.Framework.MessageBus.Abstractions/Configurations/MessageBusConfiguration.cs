@@ -49,14 +49,34 @@ namespace Up4All.Framework.MessageBus.Abstractions.Configurations
             services.AddSingleton<IMessageBusConsumer, T>();
         }
 
-        public static void AddstandaloneQueueClient(this IServiceCollection services, Func<IServiceProvider, IMessageBusQueueClient> instance)
+        public static void AddStandaloneQueueClient(this IServiceCollection services, Func<IServiceProvider, IMessageBusStandaloneQueueClient> instance)
         {
-            services.AddSingleton<IMessageBusQueueClient>(instance);
+            services.AddSingleton<IMessageBusStandaloneQueueClient>(instance);
         }
 
-        public static void AddstandaloneTopicClient(this IServiceCollection services, Func<IServiceProvider, IMessageBusPublisher> instance)
+        public static void AddStandaloneTopicClient(this IServiceCollection services, Func<IServiceProvider, IMessageBusStandalonePublisher> instance)
         {
-            services.AddSingleton<IMessageBusPublisher>(instance);
+            services.AddSingleton<IMessageBusStandalonePublisher>(instance);
+        }
+
+        public static void AddStandaloneTopicClient(this IServiceCollection services, Func<IServiceProvider, IMessageBusStandaloneConsumer> instance)
+        {
+            services.AddSingleton<IMessageBusStandaloneConsumer>(instance);
+        }
+
+        public static void AddStandaloneQueueClientMocked<T>(this IServiceCollection services) where T : MessageBusStandaloneQueueClientMock
+        {
+            services.AddSingleton<IMessageBusStandaloneQueueClient, T>();
+        }
+
+        public static void AddStandaloneTopicClientMocked<T>(this IServiceCollection services) where T : MessageBusStandaloneTopicClientMock
+        {
+            services.AddSingleton<IMessageBusStandalonePublisher, T>();
+        }
+
+        public static void AddStandaloneMessageBusSubscribeClientMocked<T>(this IServiceCollection services) where T : MessageBusStandaloneSubscribeClientMock
+        {
+            services.AddSingleton<IMessageBusStandaloneConsumer, T>();
         }
     }
 }

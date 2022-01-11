@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 using System;
 
+using Up4All.Framework.MessageBus.Abstractions.Factories;
 using Up4All.Framework.MessageBus.Abstractions.Interfaces;
 using Up4All.Framework.MessageBus.Abstractions.Mocks;
 using Up4All.Framework.MessageBus.Abstractions.Options;
@@ -14,6 +15,11 @@ namespace Up4All.Framework.MessageBus.Abstractions.Configurations
         private static void AddConfigurationBinder(this IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<MessageBusOptions>(config => configuration.GetSection("MessageBusOptions").Bind(config));
+        }
+
+        private static void AddInstanceFactory(this IServiceCollection services)
+        {
+            services.AddSingleton<MessageBusFactory>();
         }
 
         public static void AddMessageBusQueueClient<T>(this IServiceCollection services, IConfiguration configuration) where T : MessageBusQueueClient
@@ -77,6 +83,36 @@ namespace Up4All.Framework.MessageBus.Abstractions.Configurations
         public static void AddStandaloneMessageBusSubscribeClientMocked<T>(this IServiceCollection services) where T : MessageBusStandaloneSubscribeClientMock
         {
             services.AddSingleton<IMessageBusStandaloneConsumer, T>();
+        }
+
+        public static void AddMessageBusNamedQueueClient(this IServiceCollection services, string key, Func<IServiceProvider, IMessageBusStandaloneQueueClient> instance)
+        {
+            services.AddInstanceFactory();
+
+            var namedInstance = new NamedInstanceClient<IMessageBusStandaloneQueueClient>();
+            namedInstance.Key = key;
+            namedInstance.Instance = instance;
+            services.AddSingleton(namedInstance);
+        }
+
+        public static void AddMessageBusNamedTopicClient(this IServiceCollection services, string key, Func<IServiceProvider, IMessageBusStandalonePublisher> instance)
+        {
+            services.AddInstanceFactory();
+
+            var namedInstance = new NamedInstanceClient<IMessageBusStandalonePublisher>();
+            namedInstance.Key = key;
+            namedInstance.Instance = instance;
+            services.AddSingleton(namedInstance);
+        }
+
+        public static void AddMessageBusNamedSubscriptionClient(this IServiceCollection services, string key, Func<IServiceProvider, IMessageBusStandaloneConsumer> instance)
+        {
+            services.AddInstanceFactory();
+
+            var namedInstance = new NamedInstanceClient<IMessageBusStandaloneConsumer>();
+            namedInstance.Key = key;
+            namedInstance.Instance = instance;
+            services.AddSingleton(namedInstance);
         }
     }
 }

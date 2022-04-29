@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Up4All.Framework.MessageBus.Abstractions.Options
+﻿namespace Up4All.Framework.MessageBus.Abstractions.Options
 {
     public class MessageBusOptions
     {
@@ -14,6 +10,12 @@ namespace Up4All.Framework.MessageBus.Abstractions.Options
 
         public string SubscriptionName { get; set; }
 
-        
+        public int ConnectionAttempts { get; set; }
+
+        public MessageBusOptions()
+        {
+            ConnectionAttempts = 1;
+        }
+
     }
 }

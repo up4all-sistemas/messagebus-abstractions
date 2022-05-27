@@ -39,6 +39,12 @@ namespace Up4All.Framework.MessageBus.Abstractions.Messages
             AddBody(Encoding.UTF8.GetBytes(body));
         }
 
+        public void AddBody(BinaryData data, bool isJsonData = false)
+        {
+            IsJson = isJsonData;
+            AddBody(data.ToArray());
+        }
+
         public void AddBody<T>(T obj, JsonSerializerSettings opts = null) where T : class
         {
             IsJson = true;

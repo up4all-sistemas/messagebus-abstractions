@@ -25,7 +25,7 @@ namespace Up4All.Framework.MessageBus.Abstractions.Configurations
         public static void AddMessageBusQueueClient<T>(this IServiceCollection services, IConfiguration configuration) where T : MessageBusQueueClient
         {
             services.AddConfigurationBinder(configuration);
-            services.AddSingleton<IMessageBusQueueClient, T>();
+            services.AddSingleton<IMessageBusQueueClient>();
         }
 
         public static void AddMessageBusTopicClient<T>(this IServiceCollection services, IConfiguration configuration) where T : MessageBusTopicClient

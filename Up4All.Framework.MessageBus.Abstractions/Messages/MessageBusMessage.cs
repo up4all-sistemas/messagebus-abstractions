@@ -15,13 +15,17 @@ namespace Up4All.Framework.MessageBus.Abstractions.Messages
 
         public IDictionary<string, object> UserProperties { get; private set; }
 
+        public bool IsJson { get; private set; }
+
         public MessageBusMessage()
         {
+            IsJson = false;
             UserProperties = new Dictionary<string, object>();
         }
 
         public MessageBusMessage(byte[] body) : this()
         {
+            IsJson = false;
             Body = body;
         }
 
@@ -37,6 +41,7 @@ namespace Up4All.Framework.MessageBus.Abstractions.Messages
 
         public void AddBody<T>(T obj, JsonSerializerSettings opts = null) where T : class
         {
+            IsJson = true;
             AddBody(JsonConvert.SerializeObject(obj, opts));
         }
 

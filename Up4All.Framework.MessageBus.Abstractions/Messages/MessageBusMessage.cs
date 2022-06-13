@@ -58,7 +58,7 @@ namespace Up4All.Framework.MessageBus.Abstractions.Messages
 
         public void AddUserProperty(string key, object value)
         {
-            UserProperties.Add(new KeyValuePair<string,object>(key,value);
+            UserProperties.Add(new KeyValuePair<string,object>(key,value));
         }
 
         public void AddUserProperties(IDictionary<string, object> props)
